@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* === Tailwind v4: define tu tema en CSS === */
+@theme {
+  --color-muzza: #C6A9C8;
+  --color-muzza-light: #EAE0EC;
+  --color-muzza-dark: #A98FAB;
+
+  /* tipografía por defecto */
+  --font-sans: Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* (opcional) estilos base */
+@layer base {
+  body { @apply font-sans bg-gray-50 text-gray-900 antialiased; }
+}
+
