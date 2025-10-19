@@ -39,8 +39,8 @@ const App: React.FC = () => {
   const [totalCost, setTotalCost] = useState<number>(0);
 
   // Limita los pasos al rango válido
-  const goToNextStep = () => setStep(s => Math.min(AppStep.CONFIRMATION, s + 1));
-  const goToPrevStep = () => setStep(s => Math.max(AppStep.DIAGNOSIS, s - 1));
+  const goToNextStep = () => setStep(s => Math.min(AppStep.CONFIRMATION, (s as number) + 1) as AppStep);
+  const goToPrevStep = () => setStep(s => Math.max(AppStep.DIAGNOSIS, (s as number) - 1) as AppStep);
 
   const handleDiagnosisNext = () => goToNextStep();
 

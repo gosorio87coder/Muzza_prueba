@@ -20,11 +20,13 @@ export interface BookingDetails {
   dni: string;
 }
 
-export enum AppStep {
-  DIAGNOSIS,
-  SERVICE_SELECTION,
-  LOCATION_DATETIME,
-  CART_REVIEW,
-  CHECKOUT,
-  CONFIRMATION,
-}
+export const AppStep = {
+  DIAGNOSIS: 0,
+  SERVICE_SELECTION: 1,
+  LOCATION_DATETIME: 2,
+  CART_REVIEW: 3,
+  CHECKOUT: 4,
+  CONFIRMATION: 5,
+} as const;
+
+export type AppStep = (typeof AppStep)[keyof typeof AppStep];
