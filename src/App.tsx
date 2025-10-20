@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { AppStep } from './types'; // valor (objeto as const)
-import type { Service, Location, BookingDetails } from './types';
+
+// Importa el VALOR AppStep y los TIPOS por separado
+import { AppStep } from './types';
+import type { AppStep as AppStepT, Service, Location, BookingDetails } from './types';
 
 import Header from './components/Header';
 import DiagnosisStep from './components/DiagnosisStep';
@@ -10,18 +12,9 @@ import CartReview from './components/CartReview';
 import CheckoutForm from './components/CheckoutForm';
 import Confirmation from './components/Confirmation';
 
-const initialState = {
-  step: AppStep.DIAGNOSIS,
-  selectedService: null as Service | null,
-  selectedAddons: [] as Service[],
-  selectedLocation: null as Location | null,
-  selectedDateTime: null as { date: Date; time: string } | null,
-  bookingDetails: null as BookingDetails | null,
-  totalCost: 0,
-};
-
 const App: React.FC = () => {
-  const [step, setStep] = useState(initialState.step);
+  // Tipar explícitamente el estado para que sea el union 0|1|2|3|4|5
+  const [step, setStep] = useState<AppStepT>(AppStep.DIAGNOSIS);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedAddons, setSelectedAddons] = useState<Service[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
@@ -29,8 +22,9 @@ const App: React.FC = () => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
   const [totalCost, setTotalCost] = useState<number>(0);
 
-  const goToNextStep = () => setStep(prev => prev + 1);
-  const goToPrevStep = () => setStep(prev => prev - 1);
+  // Castear para mantener el union en incrementos/decrementos
+  const goToNextStep = () => setStep(prev => (prev + 1) as AppStepT);
+  const goToPrevStep = () => setStep(prev => (prev - 1) as AppStepT);
 
   const handleDiagnosisNext = () => goToNextStep();
 
@@ -57,13 +51,13 @@ const App: React.FC = () => {
   };
 
   const handleReset = () => {
-    setStep(initialState.step);
-    setSelectedService(initialState.selectedService);
-    setSelectedAddons(initialState.selectedAddons);
-    setSelectedLocation(initialState.selectedLocation);
-    setSelectedDateTime(initialState.selectedDateTime);
-    setBookingDetails(initialState.bookingDetails);
-    setTotalCost(initialState.totalCost);
+    setStep(AppStep.DIAGNOSIS);
+    setSelectedService(null);
+    setSelectedAddons([]);
+    setSelectedLocation(null);
+    setSelectedDateTime(null);
+    setBookingDetails(null);
+    setTotalCost(0);
   };
 
   const renderStep = () => {
@@ -108,16 +102,17 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen font-sans">
       <Header step={step} />
-<main className={`px-4 pb-12 ${getMainPaddingTop()}`}>
-  <div className={`max-w-4xl mx-auto bg-white rounded-2xl shadow-lg ${!isConfirmationStep ? 'p-8' : ''}`}>
-    {renderStep()}
-  </div>
-</main>
-
+      <main className={`px-4 pb-12 ${getMainPaddingTop()}`}>
+        <div className={`max-w-4xl mx-auto bg-white rounded-2xl shadow-lg ${!isConfirmationStep ? 'p-8' : ''}`}>
+          {renderStep()}
+        </div>
+      </main>
     </div>
   );
 };
+
 export default App;
+
 
 
 
