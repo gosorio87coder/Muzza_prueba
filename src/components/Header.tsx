@@ -1,28 +1,32 @@
 import React from 'react';
+import { AppStep } from '../types';                  // valor (objeto as const)
+import type { AppStep as AppStepT } from '../types'; // tipo (unión numérica)
+import Stepper from './Stepper';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  step: AppStepT;
+}
+
+const Header: React.FC<HeaderProps> = ({ step }) => {
   return (
-    <header className="bg-white shadow-md py-4 flex justify-center items-center sticky top-0 z-10">
-      <div className="relative w-80 h-28">
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-fuchsia-500 via-red-500 to-amber-400 p-1 shadow-lg">
-          <div className="w-full h-full bg-muzza rounded-lg flex flex-col items-center justify-center px-4">
-            <span
-              className="text-white text-6xl font-bold tracking-[0.25em] leading-none"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              MUZZA
-            </span>
-            <span
-              className="text-white text-xs font-light tracking-[0.3em] mt-2"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              CEJAS & PESTAÑAS
-            </span>
-          </div>
-        </div>
+    <header className="bg-white shadow-md py-4 sticky top-0 z-20">
+      <div className="flex flex-col justify-center items-center">
+        <span className="text-muzza-dark text-base font-bold tracking-[0.15em] leading-none font-sans">
+          MUZZA
+        </span>
+        <span className="text-gray-500 text-[6px] font-light tracking-[0.15em] mt-0.5 font-sans">
+          CEJAS & PESTAÑAS
+        </span>
       </div>
+
+      {step !== AppStep.CONFIRMATION && (
+        <div className="mt-6">
+          <Stepper currentStep={step} />
+        </div>
+      )}
     </header>
   );
 };
 
 export default Header;
+

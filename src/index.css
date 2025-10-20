@@ -1,17 +1,52 @@
+/* Tailwind v4: importa el core */
 @import "tailwindcss";
 
-/* === Tailwind v4: define tu tema en CSS === */
+/* =========================
+   Tokens de diseño (v4 @theme)
+   ========================= */
 @theme {
+  /* Colores de marca */
   --color-muzza: #C6A9C8;
   --color-muzza-light: #EAE0EC;
   --color-muzza-dark: #A98FAB;
 
-  /* tipografía por defecto */
-  --font-sans: Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  /* Tipografía base */
+  --font-sans: Poppins, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* (opcional) estilos base */
-@layer base {
-  body { @apply font-sans bg-gray-50 text-gray-900 antialiased; }
+/* =========================
+   Utilidades personalizadas
+   ========================= */
+
+/* Animación fade-in usada en múltiples pantallas */
+@keyframes fade-in {
+  from { opacity: 0 }
+  to   { opacity: 1 }
 }
+@utility animate-fade-in {
+  animation: fade-in .5s ease-in-out both;
+}
+
+/* (Opcional) Puedes añadir más utilidades, por ejemplo:
+@utility card {
+  @apply bg-white rounded-2xl shadow p-6;
+}
+*/
+
+/* =========================
+   Estilos base
+   ========================= */
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply font-sans bg-gray-50 text-gray-900 antialiased;
+  }
+
+  /* Ajustes de accesibilidad/foco agradables por defecto */
+  :focus-visible {
+    @apply outline-none ring-2 ring-muzza ring-offset-2 ring-offset-white;
+  }
+}
+
 

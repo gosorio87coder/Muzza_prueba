@@ -8,15 +8,32 @@ interface ServiceSelectorProps {
 }
 
 const ServiceCard: React.FC<{ service: Service; onSelect: () => void }> = ({ service, onSelect }) => {
+  const isMicropigmentacion = service.name.startsWith('Micropigmentación');
+
+  const renderTitle = () => {
+    if (isMicropigmentacion) {
+      const technique = service.name.replace('Micropigmentación ', '');
+      return (
+        <>
+          <span className="block text-gray-500 font-medium leading-tight">Micropigmentación</span>
+          <span className="block leading-tight">{technique}</span>
+        </>
+      );
+    }
+    return service.name;
+  };
+
   return (
-    <div className="border border-gray-200 rounded-xl p-6 flex flex-col hover:shadow-xl transition-shadow duration-300">
-      <h3 className="text-lg font-bold text-muzza-dark">{service.name}</h3>
-      <p className="text-gray-600 my-4 flex-grow">{service.description}</p>
+    <div className="border border-gray-200 rounded-xl p-5 flex flex-col hover:shadow-xl transition-shadow duration-300">
+      <h3 className="text-base font-bold text-muzza-dark h-12">
+        {renderTitle()}
+      </h3>
+      <p className="text-xs text-gray-600 my-3 flex-grow">{service.description}</p>
       <div className="flex justify-between items-center mt-auto">
-        <span className="text-2xl font-bold text-gray-800">${service.price}</span>
+        <span className="text-xl font-bold text-gray-800">S/{service.price}</span>
         <button
           onClick={onSelect}
-          className="px-6 py-2 bg-muzza text-gray-800 font-semibold rounded-lg shadow-md hover:bg-muzza-dark focus:outline-none focus:ring-2 focus:ring-muzza-dark focus:ring-opacity-75 transition-colors duration-300"
+          className="px-5 py-2 text-sm bg-muzza text-gray-800 font-semibold rounded-lg shadow-md hover:bg-muzza-dark focus:outline-none focus:ring-2 focus:ring-muzza-dark focus:ring-opacity-75 transition-colors duration-300"
         >
           Seleccionar
         </button>

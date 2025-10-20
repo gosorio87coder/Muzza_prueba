@@ -17,7 +17,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ totalCost, onPay, onBack })
     name: '',
     email: '',
     phone: '',
-    dni: ''
+    dni: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isProcessing, setIsProcessing] = useState(false);
@@ -55,38 +55,83 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ totalCost, onPay, onBack })
       <form onSubmit={handleSubmit} noValidate>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre y Apellido</label>
-            <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm" />
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Nombre y Apellido
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm"
+            />
             {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
           </div>
+
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm" />
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm"
+            />
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
+
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Número de Teléfono</label>
-            <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm" />
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              Número de Teléfono
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm"
+            />
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
           </div>
+
           <div>
-            <label htmlFor="dni" className="block text-sm font-medium text-gray-700">DNI</label>
-            <input type="text" name="dni" id="dni" value={formData.dni} onChange={handleChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm" />
+            <label htmlFor="dni" className="block text-sm font-medium text-gray-700">
+              DNI
+            </label>
+            <input
+              type="text"
+              name="dni"
+              id="dni"
+              value={formData.dni}
+              onChange={handleChange}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-muzza focus:border-muzza sm:text-sm"
+            />
             {errors.dni && <p className="text-red-500 text-xs mt-1">{errors.dni}</p>}
           </div>
         </div>
-        
+
         <div className="mt-8 pt-6 border-t-2 border-dashed">
-            <div className="flex justify-between items-center text-2xl font-bold">
-                <span className="text-gray-800">Total a Pagar:</span>
-                <span className="text-muzza-dark">${totalCost.toFixed(2)}</span>
-            </div>
+          <div className="flex justify-between items-center text-2xl font-bold">
+            <span className="text-gray-800">Total a Pagar:</span>
+            <span className="text-muzza-dark">S/{totalCost.toFixed(2)}</span>
+          </div>
         </div>
-        
+
         <div className="flex justify-between mt-12">
-          <button type="button" onClick={onBack} disabled={isProcessing} className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50 transition-colors duration-300">
+          <button
+            type="button"
+            onClick={onBack}
+            disabled={isProcessing}
+            className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50 transition-colors duration-300"
+          >
             ← Volver
           </button>
+
           <button
             type="submit"
             disabled={isProcessing}
@@ -98,7 +143,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ totalCost, onPay, onBack })
                 Procesando...
               </>
             ) : (
-              `Pagar $${totalCost.toFixed(2)}`
+              `Pagar S/${totalCost.toFixed(2)}`
             )}
           </button>
         </div>

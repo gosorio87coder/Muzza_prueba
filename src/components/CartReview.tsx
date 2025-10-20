@@ -31,7 +31,7 @@ const CartReview: React.FC<CartReviewProps> = ({ mainService, onNext, onBack }) 
         <h3 className="font-bold text-lg text-muzza-dark mb-2">Servicio Principal</h3>
         <div className="flex justify-between items-center">
           <p className="text-gray-700">{mainService.name}</p>
-          <p className="font-semibold text-gray-800">${mainService.price.toFixed(2)}</p>
+          <p className="font-semibold text-gray-800">S/{mainService.price.toFixed(2)}</p>
         </div>
       </div>
 
@@ -50,10 +50,9 @@ const CartReview: React.FC<CartReviewProps> = ({ mainService, onNext, onBack }) 
               >
                 <div>
                   <p className="font-semibold text-gray-800">{addon.name}</p>
-                  <p className="text-sm text-gray-600">{addon.description}</p>
                 </div>
                 <div className="flex items-center">
-                  <span className="font-semibold text-gray-800 mr-4">${addon.price.toFixed(2)}</span>
+                  <span className="font-semibold text-gray-800 mr-4">S/{addon.price.toFixed(2)}</span>
                   <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isSelected ? 'border-muzza bg-muzza' : 'border-gray-400'}`}>
                     {isSelected && <span className="text-white text-sm">✓</span>}
                   </div>
@@ -63,19 +62,25 @@ const CartReview: React.FC<CartReviewProps> = ({ mainService, onNext, onBack }) 
           })}
         </div>
       </div>
-      
+
       <div className="mt-8 pt-6 border-t-2 border-dashed">
         <div className="flex justify-between items-center text-2xl font-bold">
           <span className="text-gray-800">Total:</span>
-          <span className="text-muzza-dark">${totalCost.toFixed(2)}</span>
+          <span className="text-muzza-dark">S/{totalCost.toFixed(2)}</span>
         </div>
       </div>
 
       <div className="flex justify-between mt-12">
-        <button onClick={onBack} className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors duration-300">
+        <button
+          onClick={onBack}
+          className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors duration-300"
+        >
           ← Volver
         </button>
-        <button onClick={() => onNext(selectedAddons, totalCost)} className="px-8 py-3 bg-muzza text-gray-800 font-semibold rounded-lg shadow-md hover:bg-muzza-dark transition-colors duration-300">
+        <button
+          onClick={() => onNext(selectedAddons, totalCost)}
+          className="px-8 py-3 bg-muzza text-gray-800 font-semibold rounded-lg shadow-md hover:bg-muzza-dark transition-colors duration-300"
+        >
           Continuar al Pago
         </button>
       </div>

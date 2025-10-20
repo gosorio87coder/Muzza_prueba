@@ -20,10 +20,10 @@ const LocationTimeSelector: React.FC<LocationTimeSelectorProps> = ({ onNext, onB
     const date = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth() + 1, 0);
     return date.getDate();
   }, [currentMonthDate]);
-  
+
   const startDayOfMonth = useMemo(() => {
     const date = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), 1);
-    return date.getDay(); // 0 for Sunday, 1 for Monday...
+    return date.getDay(); // 0 domingo, 1 lunes, ...
   }, [currentMonthDate]);
 
   const today = new Date();
@@ -39,9 +39,9 @@ const LocationTimeSelector: React.FC<LocationTimeSelectorProps> = ({ onNext, onB
         const day = selectedDate.getDate();
         let unavailableSlots: string[] = [];
         if (day % 3 === 0) {
-          if (selectedLocation.id === 1) { // Jesus Maria
+          if (selectedLocation.id === 1) {
             unavailableSlots = ['10:30'];
-          } else if (selectedLocation.id === 2) { // Bellavista
+          } else if (selectedLocation.id === 2) {
             unavailableSlots = ['09:00', '15:00'];
           }
         }
@@ -55,23 +55,32 @@ const LocationTimeSelector: React.FC<LocationTimeSelectorProps> = ({ onNext, onB
 
   const handleDateSelect = (day: number) => {
     const date = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), day);
-    if (date >= today) {
-        setSelectedDate(date);
-    }
+    if (date >= today) setSelectedDate(date);
   };
 
   const isNextEnabled = !!selectedLocation && !!selectedDate && !!selectedTime;
-  
+
   const Calendar = () => (
     <div className="mt-6 p-4 border rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <button onClick={() => setCurrentMonthDate(d => new Date(d.getFullYear(), d.getMonth() - 1, 1))}>&lt;</button>
-        <h3 className="font-bold">{currentMonthDate.toLocaleString('es-ES', { month: 'long', year: 'numeric' })}</h3>
+        <h3 className="font-bold">
+          {currentMonthDate.toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
+        </h3>
         <button onClick={() => setCurrentMonthDate(d => new Date(d.getFullYear(), d.getMonth() + 1, 1))}>&gt;</button>
       </div>
+
       <div className="grid grid-cols-7 gap-1 text-center text-sm">
-        {['D', 'L', 'M', 'X', 'J', 'V', 'S'].map(d => <div key={d} className="font-semibold text-gray-500">{d}</div>)}
-        {Array.from({ length: startDayOfMonth }).map((_, i) => <div key={`empty-${i}`}></div>)}
+        {['D', 'L', 'M', 'X', 'J', 'V', 'S'].map(d => (
+          <div key={d} className="font-semibold text-gray-500">
+            {d}
+          </div>
+        ))}
+
+        {Array.from({ length: startDayOfMonth }).map((_, i) => (
+          <div key={`empty-${i}`} />
+        ))}
+
         {Array.from({ length: daysInMonth }).map((_, i) => {
           const day = i + 1;
           const date = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), day);
@@ -99,7 +108,9 @@ const LocationTimeSelector: React.FC<LocationTimeSelectorProps> = ({ onNext, onB
 
   return (
     <div className="animate-fade-in">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Selecciona Sede, Fecha y Hora</h2>
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+        Selecciona Sede, Fecha y Hora
+      </h2>
 
       <div>
         <h3 className="font-semibold text-gray-700 mb-3">1. Sede</h3>
@@ -108,14 +119,18 @@ const LocationTimeSelector: React.FC<LocationTimeSelectorProps> = ({ onNext, onB
             <button
               key={loc.id}
               onClick={() => setSelectedLocation(loc)}
-              className={`px-6 py-3 rounded-lg border-2 transition-colors duration-200 ${selectedLocation?.id === loc.id ? 'bg-muzza text-gray-800 font-semibold border-muzza' : 'border-gray-300 hover:border-muzza'}`}
+              className={`px-6 py-3 rounded-lg border-2 transition-colors duration-200 ${
+                selectedLocation?.id === loc.id
+                  ? 'bg-muzza text-gray-800 font-semibold border-muzza'
+                  : 'border-gray-300 hover:border-muzza'
+              }`}
             >
               {loc.name}
             </button>
           ))}
         </div>
       </div>
-      
+
       {selectedLocation && (
         <div className="mt-6">
           <h3 className="font-semibold text-gray-700 mb-3">2. Fecha</h3>
@@ -154,7 +169,10 @@ const LocationTimeSelector: React.FC<LocationTimeSelectorProps> = ({ onNext, onB
       )}
 
       <div className="flex justify-between mt-12">
-        <button onClick={onBack} className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors duration-300">
+        <button
+          onClick={onBack}
+          className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors duration-300"
+        >
           ← Volver
         </button>
         <button
